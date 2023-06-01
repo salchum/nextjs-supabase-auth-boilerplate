@@ -4,9 +4,11 @@ import { redirect } from 'next/navigation';
 import SignOut from 'src/components/SignOut';
 import createClient from 'src/lib/supabase-server';
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 export default async function Profile() {
   const supabase = createClient();
-
+  // await delay(1000);
   const {
     data: { user },
   } = await supabase.auth.getUser();
