@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { redirect, useRouter } from 'next/navigation';
 
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
@@ -17,18 +18,8 @@ export default function Home() {
   }
 
   if (user) {
-    return (
-      <div className="card">
-        <h2>Welcome!</h2>
-        <code className="highlight">{user.role}</code>
-        <Link className="button" href="/profile">
-          Go to Profile
-        </Link>
-        <button type="button" className="button-inverse" onClick={signOut}>
-          Sign Out
-        </button>
-      </div>
-    );
+    const router = useRouter();
+    router.push('/profile');
   }
 
   return <Auth view={view} />;
