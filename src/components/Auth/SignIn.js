@@ -59,7 +59,7 @@ const SignIn = () => {
                       <div className="relative">
                         <Field
                           className={cn(
-                            '"py-3 required aria-describedby="email-error" block w-full rounded-md border-gray-200 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
+                            'required aria-describedby="email-error" block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
                             errors.email && touched.email && 'bg-red-50'
                           )}
                           id="email"
@@ -70,18 +70,6 @@ const SignIn = () => {
                         {errors.email && touched.email ? (
                           <div className="text-red-600">{errors.email}</div>
                         ) : null}
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                          <svg
-                            className="h-5 w-5 text-red-500"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                            aria-hidden="true"
-                          >
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                          </svg>
-                        </div>
                       </div>
                     </div>
                     <div>
@@ -96,7 +84,7 @@ const SignIn = () => {
                       <div className="relative">
                         <Field
                           className={cn(
-                            '"py-3 dark:text-gray-400" required aria-describedby="password-error" block w-full rounded-md border-gray-200 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800',
+                            'dark:text-gray-400" required aria-describedby="password-error" block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800',
                             errors.password && touched.password && 'bg-red-50'
                           )}
                           id="password"
@@ -106,18 +94,6 @@ const SignIn = () => {
                         {errors.password && touched.password ? (
                           <div className="text-red-600">{errors.password}</div>
                         ) : null}
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                          <svg
-                            className="h-5 w-5 text-red-500"
-                            width="16"
-                            height="16"
-                            fill="currentColor"
-                            viewBox="0 0 16 16"
-                            aria-hidden="true"
-                          >
-                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                          </svg>
-                        </div>
                       </div>
                     </div>
                     <button
