@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import SignOut from 'src/components/SignOut';
 import createClient from 'src/lib/supabase-server';
 
 export default async function Profile() {
@@ -24,7 +23,6 @@ export default async function Profile() {
       <Link className="button" href="/">
         Go Home
       </Link>
-      <SignOut />
     </div>
   );
 }

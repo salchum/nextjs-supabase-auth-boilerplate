@@ -29,64 +29,119 @@ const SignIn = () => {
   }
 
   return (
-    <div className="card">
-      <h2 className="w-full text-center">Sign In</h2>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validationSchema={SignInSchema}
-        onSubmit={signIn}
-      >
-        {({ errors, touched }) => (
-          <Form className="column w-full">
-            <label htmlFor="email">Email</label>
-            <Field
-              className={cn('input', errors.email && touched.email && 'bg-red-50')}
-              id="email"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-            />
-            {errors.email && touched.email ? (
-              <div className="text-red-600">{errors.email}</div>
-            ) : null}
-
-            <label htmlFor="email">Password</label>
-            <Field
-              className={cn('input', errors.password && touched.password && 'bg-red-50')}
-              id="password"
-              name="password"
-              type="password"
-            />
-            {errors.password && touched.password ? (
-              <div className="text-red-600">{errors.password}</div>
-            ) : null}
-
-            <button
-              className="link w-full"
-              type="button"
-              onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)}
+    <main className="mx-auto w-full max-w-md p-6">
+      <div className="mt-7 rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+        <div className="p-4 sm:p-7">
+          <div className="text-center">
+            <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
+              Welcome back, Peasant!{' '}
+            </h1>
+          </div>
+          <div className="mt-5">
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              validationSchema={SignInSchema}
+              onSubmit={signIn}
             >
-              Forgot your password?
+              {({ errors, touched }) => (
+                <Form className="column w-full">
+                  <div className="grid gap-y-4">
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="mb-2 block text-sm dark:text-white"
+                      >
+                        Email address
+                      </label>
+                      <div className="relative">
+                        <Field
+                          className={cn(
+                            '"py-3 required aria-describedby="email-error" block w-full rounded-md border-gray-200 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400',
+                            errors.email && touched.email && 'bg-red-50'
+                          )}
+                          id="email"
+                          name="email"
+                          placeholder="jane@acme.com"
+                          type="email"
+                        />
+                        {errors.email && touched.email ? (
+                          <div className="text-red-600">{errors.email}</div>
+                        ) : null}
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                          <svg
+                            className="h-5 w-5 text-red-500"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <label
+                          htmlFor="password"
+                          className="mb-2 block text-sm dark:text-white"
+                        >
+                          Password
+                        </label>
+                      </div>
+                      <div className="relative">
+                        <Field
+                          className={cn(
+                            '"py-3 dark:text-gray-400" required aria-describedby="password-error" block w-full rounded-md border-gray-200 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800',
+                            errors.password && touched.password && 'bg-red-50'
+                          )}
+                          id="password"
+                          name="password"
+                          type="password"
+                        />
+                        {errors.password && touched.password ? (
+                          <div className="text-red-600">{errors.password}</div>
+                        ) : null}
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                          <svg
+                            className="h-5 w-5 text-red-500"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            aria-hidden="true"
+                          >
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      className="mt-2 inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                      type="submit"
+                    >
+                      Sign In
+                    </button>{' '}
+                  </div>
+                </Form>
+              )}
+            </Formik>
+            {errorMsg && <div className="text-red-600">{errorMsg}</div>}
+            <button
+              className="link mt-2 w-full"
+              type="button"
+              onClick={() => setView(VIEWS.SIGN_UP)}
+            >
+              Are you deadwood? Sign up here.
             </button>
-
-            <button className="button-inverse w-full" type="submit">
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
-      {errorMsg && <div className="text-red-600">{errorMsg}</div>}
-      <button
-        className="link w-full"
-        type="button"
-        onClick={() => setView(VIEWS.SIGN_UP)}
-      >
-        Don&apos;t have an account? Sign Up.
-      </button>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 
