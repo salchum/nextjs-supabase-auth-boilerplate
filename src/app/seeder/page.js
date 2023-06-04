@@ -1,11 +1,11 @@
 'use client';
 
-import { useAuth } from 'src/components/AuthProvider';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { redirect, useRouter } from 'next/navigation';
+
+import { useAuth } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
-import { useRouter } from 'next/navigation';
 
 export default function Profile() {
   const { initial, user } = useAuth();
@@ -79,8 +79,8 @@ export default function Profile() {
 
   function fillRoles() {
     const roles = ['System Administrator', 'Approver', 'Employee'];
-    roles.map(async (role_name) => {
-      const { data, error } = await supabase.from('m_roles').insert([{ role_name }]);
+    roles.map(async (roleName) => {
+      const { data, error } = await supabase.from('m_roles').insert([{ roleName }]);
       console.log('data: ', data);
       console.log('error: ', error);
     });
@@ -88,11 +88,17 @@ export default function Profile() {
 
   return (
     <>
-      <button onClick={fillJabatan}>fill jabatan</button>
+      <button type="button" onClick={fillJabatan}>
+        fill jabatan
+      </button>
       <br />
-      <button onClick={fillStatus}>fill status</button>
+      <button type="button" onClick={fillStatus}>
+        fill status
+      </button>
       <br />
-      <button onClick={fillRoles}>fill roles</button>
+      <button type="button" onClick={fillRoles}>
+        fill roles
+      </button>
       <br />
     </>
   );

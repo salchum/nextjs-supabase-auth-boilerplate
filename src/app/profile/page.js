@@ -1,11 +1,11 @@
 'use client';
 
-import { useAuth } from 'src/components/AuthProvider';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { redirect, useRouter } from 'next/navigation';
+
+import { useAuth } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
-import { useRouter } from 'next/navigation';
 // import createClient from 'src/lib/supabase-server';
 
 export default function Profile() {

@@ -1,7 +1,8 @@
 'use client';
 
-import { useAuth } from './AuthProvider';
 import { useRouter } from 'next/navigation';
+
+import { useAuth } from './AuthProvider';
 
 export default function SignOut() {
   const { signOut } = useAuth();

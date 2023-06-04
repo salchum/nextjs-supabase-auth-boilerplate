@@ -1,11 +1,11 @@
 'use client';
 
-import { useAuth } from 'src/components/AuthProvider';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { redirect, useRouter } from 'next/navigation';
+
+import { useAuth } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
-import { useRouter } from 'next/navigation';
 
 export default function Profile() {
   const [profile, setProfile] = useState(null);
@@ -21,7 +21,6 @@ export default function Profile() {
   useEffect(() => {
     if (!initial && !user) {
       router.push('/');
-      return;
     }
   }, [initial, user]);
 
@@ -68,6 +67,10 @@ export default function Profile() {
     fetchListEselon3();
   }, [unit]);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log('submit');
+  }
   return (
     <>
       {/* <!-- Card Section --> */}
@@ -83,13 +86,13 @@ export default function Profile() {
             </p>
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* <!-- Grid --> */}
             <div className="grid grid-cols-12 gap-4 sm:gap-6">
               <div className="col-span-3">
-                <label className="mt-2.5 inline-block text-sm text-gray-800 dark:text-gray-200">
+                {/* <label className="mt-2.5 inline-block text-sm text-gray-800 dark:text-gray-200">
                   Profile photo
-                </label>
+                </label> */}
               </div>
               {/* <!-- End Col --> */}
 
@@ -275,7 +278,7 @@ export default function Profile() {
               </button>
               <button
                 type="button"
-                onClick={() => aler('belum bisa save juga wkwk')}
+                onClick={() => alert('belum bisa save juga wkwk')}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 px-3 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               >
                 Save changes

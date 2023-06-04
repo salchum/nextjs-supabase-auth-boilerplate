@@ -1,8 +1,9 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
-import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const { initial, user, view } = useAuth();

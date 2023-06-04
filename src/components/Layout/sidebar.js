@@ -12,7 +12,7 @@ export default function Sidebar() {
         <Toggle />
         <div
           id="application-sidebar"
-          className="hs-overlay scrollbar-y dark:scrollbar-y fixed bottom-0 left-0 top-0 z-[60] hidden w-64 -translate-x-full transform overflow-y-auto border-r border-gray-200 bg-white pb-10 pt-7 transition-all duration-300 hs-overlay-open:translate-x-0 dark:border-gray-700 dark:bg-gray-800 lg:bottom-0 lg:right-auto lg:block lg:translate-x-0"
+          className="hs-overlay scrollbar-y dark:scrollbar-y fixed inset-y-0 left-0 z-[60] hidden w-64 -translate-x-full overflow-y-auto border-r border-gray-200 bg-white pb-10 pt-7 transition-all duration-300 hs-overlay-open:translate-x-0 dark:border-gray-700 dark:bg-gray-800 lg:bottom-0 lg:right-auto lg:block lg:translate-x-0"
         >
           <div className="px-6">
             <a
