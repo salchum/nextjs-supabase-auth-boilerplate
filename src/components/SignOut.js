@@ -1,9 +1,11 @@
 'use client';
 
 import { useAuth } from './AuthProvider';
+import { useRouter } from 'next/navigation';
 
 export default function SignOut() {
   const { signOut } = useAuth();
+  const router = useRouter();
   // const class = { props, ...className } || '';
   // console.log('SignOut', props);
 
@@ -13,6 +15,7 @@ export default function SignOut() {
     if (error) {
       console.error('ERROR signing out:', error);
     }
+    router.push('/');
   }
 
   return (

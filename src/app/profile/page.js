@@ -1,28 +1,58 @@
+'use client';
+
+import { useAuth } from 'src/components/AuthProvider';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import supabase from 'src/lib/supabase-browser';
+import { useRouter } from 'next/navigation';
+// import createClient from 'src/lib/supabase-server';
 
-import createClient from 'src/lib/supabase-server';
+export default function Profile() {
+  // const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const { initial, user } = useAuth();
+  const router = useRouter();
 
-export default async function Profile() {
-  const supabase = createClient();
+  useEffect(() => {
+    if (!initial && !user) {
+      router.push('/');
+    }
+  }, [initial, user]);
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    async function fetchFullProfile() {
+      const { data } = await supabase
+        .from('profiles')
+        .select()
+        .eq('id', user.id)
+        .maybeSingle();
+      if (!data) {
+        router.push('/first');
+      }
+      if (data) {
+        console.log('full profile: ', data);
+        setProfile(data);
+      }
+    }
 
-  if (!user) {
-    redirect('/');
-  }
+    if (user && !profile) {
+      fetchFullProfile();
+    }
+  }, [user, profile]);
 
   return (
-    <div className="card">
-      <h2>User Profile</h2>
-      <code className="highlight">{user.email}</code>
-      <div className="heading">Last Signed In:</div>
-      <code className="highlight">{new Date(user.last_sign_in_at).toUTCString()}</code>
-      <Link className="button" href="/">
-        Go Home
-      </Link>
-    </div>
+    <>
+      {user && (
+        <pre>
+          <code>{JSON.stringify(user, null, 2)}</code>
+        </pre>
+      )}
+      {profile && (
+        <pre>
+          <code>{JSON.stringify(profile, null, 2)}</code>
+        </pre>
+      )}
+    </>
   );
 }
