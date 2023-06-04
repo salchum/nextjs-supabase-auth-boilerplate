@@ -13,8 +13,10 @@ export default function Profile() {
   const router = useRouter();
   const [listEselon2, setListEselon2] = useState([]);
   const [listEselon3, setListEselon3] = useState([]);
+  const [listJabatan, setListJabatan] = useState([]);
   const [unit, setUnit] = useState('Pilih Unit');
   const [subdit, setSubdit] = useState('Pilih Subdit');
+  const [jabatan, setJabatan] = useState('Pilih Jabatan');
 
   useEffect(() => {
     if (!initial && !user) {
@@ -36,6 +38,9 @@ export default function Profile() {
   useEffect(() => {
     fetchListEselon2();
   }, []);
+  useEffect(() => {
+    fetchListJabatan();
+  }, []);
 
   async function fetchListEselon3() {
     const { data, error } = await supabase
@@ -45,6 +50,15 @@ export default function Profile() {
     setListEselon3(data);
     console.log('data', data);
     console.log('error', error);
+  }
+
+  async function fetchListJabatan() {
+    const { data, error } = await supabase.from('m_jabatan').select('*');
+    if (error) {
+      console.log('error', error);
+    }
+    setListJabatan(data);
+    console.log('data', data);
   }
 
   useEffect(() => {
@@ -232,11 +246,21 @@ export default function Profile() {
 
               <div className="col-span-9">
                 <div className="sm:flex">
-                  <select className="relative -ml-px -mt-px block w-full border-gray-200 px-3 py-2 pr-9 text-sm shadow-sm first:rounded-t-lg last:rounded-b-lg focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 sm:mt-0 sm:w-auto sm:first:ml-0 sm:first:rounded-l-lg sm:first:rounded-tr-none sm:last:rounded-r-lg sm:last:rounded-bl-none">
-                    <option selected>Sekretariat</option>
-                    <option>Dit 1</option>
-                    <option>Dit 2</option>
-                    <option>Dit 3</option>
+                  <select
+                    className="relative -ml-px -mt-px block w-full border-gray-200 px-3 py-2 pr-9 text-sm shadow-sm first:rounded-t-lg last:rounded-b-lg focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 sm:mt-0 sm:w-auto sm:first:ml-0 sm:first:rounded-l-lg sm:first:rounded-tr-none sm:last:rounded-r-lg sm:last:rounded-bl-none"
+                    value={jabatan}
+                    onChange={(e) => {
+                      setJabatan(e.target.value);
+                    }}
+                  >
+                    <option disabled>Pilih Jabatan</option>
+                    {listJabatan.map((jabatan) => {
+                      return (
+                        <option key={jabatan.id} value={jabatan.id}>
+                          {jabatan.jabatan}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
               </div>
@@ -251,6 +275,7 @@ export default function Profile() {
               </button>
               <button
                 type="button"
+                onClick={() => aler('belum bisa save juga wkwk')}
                 className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-blue-500 px-3 py-2 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
               >
                 Save changes
