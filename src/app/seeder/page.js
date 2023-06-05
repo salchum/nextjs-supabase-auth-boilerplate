@@ -80,7 +80,9 @@ export default function Profile() {
   function fillRoles() {
     const roles = ['System Administrator', 'Approver', 'Employee'];
     roles.map(async (roleName) => {
-      const { data, error } = await supabase.from('m_roles').insert([{ roleName }]);
+      const { data, error } = await supabase
+        .from('m_roles')
+        .insert([{ role_name: roleName }]);
       console.log('data: ', data);
       console.log('error: ', error);
     });
