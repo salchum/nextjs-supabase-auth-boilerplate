@@ -1,4 +1,6 @@
 import { AuthProvider } from 'src/components/AuthProvider';
+import Sidebar from 'src/components/Layout/sidebar';
+import Topbar from 'src/components/Layout/topbar';
 import createClient from 'src/lib/supabase-server';
 
 import 'src/styles/globals.css';
@@ -14,18 +16,23 @@ export default async function RootLayout({ children }) {
   } = await supabase.auth.getSession();
 
   const accessToken = session?.access_token || null;
+  const className = accessToken
+    ? 'min-h-full w-full px-4 pt-10 sm:px-6 md:px-8 lg:pl-72'
+    : 'min-h-full w-full px-4 pt-10 sm:px-6 md:px-8';
 
   return (
     <html lang="en">
-      <body>
-        <div className="flex min-h-screen flex-col items-center justify-center py-2">
-          <main className="flex w-full flex-1 shrink-0 flex-col items-center justify-center px-8 text-center sm:px-20">
-            <h1 className="mb-12 text-5xl font-bold sm:text-6xl">
-              Next.js with <span className="font-black text-green-400">Supabase</span>
-            </h1>
-            <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
-          </main>
-        </div>
+      <body className="min-h-screen bg-gray-50 dark:bg-slate-900">
+        <AuthProvider accessToken={accessToken}>
+          <Topbar />
+          {/* <Toggle /> */}
+          <Sidebar />
+          <div className={className}>
+            <div className="text-sm font-semibold text-gray-800 dark:text-gray-400">
+              {children}
+            </div>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
