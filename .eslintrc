@@ -13,6 +13,8 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/function-component-definition": "off",
     "react/jsx-no-bind": "off",
-    "react/react-in-jsx-scope": "off"
-  }
+    "react/react-in-jsx-scope": "off",
+    "simple-import-sort/imports": "error"
+  },
+  "plugins": ["simple-import-sort"]
 }
