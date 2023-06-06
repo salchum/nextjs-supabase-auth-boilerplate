@@ -1,30 +1,58 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
-import SignOut from 'src/components/SignOut';
-import createClient from 'src/lib/supabase-server';
+import { useAuth } from 'src/components/AuthProvider';
+import supabase from 'src/lib/supabase-browser';
+// import createClient from 'src/lib/supabase-server';
 
-export default async function Profile() {
-  const supabase = createClient();
+export default function Profile() {
+  // const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const { initial, user } = useAuth();
+  const router = useRouter();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  useEffect(() => {
+    if (!initial && !user) {
+      router.push('/');
+    }
+  }, [initial, user]);
 
-  if (!user) {
-    redirect('/');
-  }
+  useEffect(() => {
+    async function fetchFullProfile() {
+      const { data } = await supabase
+        .from('profiles')
+        .select()
+        .eq('id', user.id)
+        .maybeSingle();
+      if (!data) {
+        router.push('/first');
+      }
+      if (data) {
+        console.log('full profile: ', data);
+        setProfile(data);
+      }
+    }
+
+    if (user && !profile) {
+      fetchFullProfile();
+    }
+  }, [user, profile]);
 
   return (
-    <div className="card">
-      <h2>User Profile</h2>
-      <code className="highlight">{user.email}</code>
-      <div className="heading">Last Signed In:</div>
-      <code className="highlight">{new Date(user.last_sign_in_at).toUTCString()}</code>
-      <Link className="button" href="/">
-        Go Home
-      </Link>
-      <SignOut />
-    </div>
+    <>
+      {user && (
+        <pre>
+          <code>{JSON.stringify(user, null, 2)}</code>
+        </pre>
+      )}
+      {profile && (
+        <pre>
+          <code>{JSON.stringify(profile, null, 2)}</code>
+        </pre>
+      )}
+    </>
   );
 }
